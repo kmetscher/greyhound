@@ -1,4 +1,4 @@
-# Greyhound
+![Gopher Greyhound, see link on Renee French](./logo.png)
 
 Greyhound (noun): Something fast, at least ostensibly, like the dog or the bus line, or drank fast, like the cocktail.
 
@@ -25,4 +25,5 @@ easier, so let's (try) to use them.
 
 - [Blog](https://kylemetscher.com)
 - [LinkedIn](https://www.linkedin.com/in/c0w80yd4n)
+- [Renee French's gopher](https://go.dev/blog/gopher)
 - [IPChicken](https://ipchicken.com)
