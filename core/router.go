@@ -7,8 +7,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"greyhound/bootstrap"
 	"greyhound/controllers"
-    "greyhound/bootstrap"
+	"greyhound/routes"
 )
 
 type Greyhound struct {
@@ -18,6 +19,7 @@ type Greyhound struct {
 func New() *Greyhound {
     engine := gin.Default()
     engine.SetHTMLTemplate(bootstrap.ParseIndex())
+    engine.Static("assets", "web/dist/assets")
     g := &Greyhound{
         *engine,
     }
@@ -63,6 +65,7 @@ func dispatch(controller controllers.Controller) gin.HandlerFunc {
     }
 }
 
-func (g *Greyhound) registerGet(path string, controller controllers.Controller) {
-    g.engine.GET(path, dispatch(controller))
+func (g *Greyhound) Register(route routes.Route) {
+    g.engine.Handle(string(route.Method), route.Path, dispatch(route.Controller))
 }
+
