@@ -2,7 +2,7 @@ package core
 
 import (
     "github.com/gin-gonic/gin"
-    "rockinghorse/middleware"
+    "greyhound/middleware"
 )
 
 type Greyhound struct {
