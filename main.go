@@ -10,3 +10,5 @@ func main() {
     r.Use(static.Serve("/", static.LocalFile("./web/dist", false)))
     r.Run(":8080")
 }
+
+
