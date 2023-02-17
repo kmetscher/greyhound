@@ -6,9 +6,11 @@ import (
 
 func HelloWorld(c *gin.Context) (component string, props interface{}) {
     helloProps := struct {
-        msg string 
+        Message string 
+        Success string
     }{
-        msg: "All aboard!",
+        Message: "All aboard!",
+        Success: "Your Greyhound app appears to be working.",
     }
     helloComponent := "HelloWorld"
     return helloComponent, helloProps

@@ -19,6 +19,7 @@ type Greyhound struct {
 func Router() *Greyhound {
     engine := gin.Default()
     // TODO: extract indexing and static asset loading to end user bootstrapping
+    // possibly also just tie to /dist after build; am I all in on Vue or want to be agnostic?
     // HACK: just declare those paths as constructor params?
     engine.SetHTMLTemplate(bootstrap.ParseIndex())
     engine.Static("assets", "web/dist/assets")
@@ -62,7 +63,7 @@ func dispatch(controller controllers.Controller) gin.HandlerFunc {
         } else {
             context.HTML(http.StatusOK, "index.html", gin.H{
                 "component": component,
-                "props": propsJson,
+                "props": string(propsJson),
             })
         }
     }

@@ -5,6 +5,6 @@ import (
 )
 
 func ParseIndex() *template.Template {
-    return template.Must(template.ParseFiles("index.html"))
+    return template.Must(template.ParseFiles("web/dist/index.html"))
 }
 

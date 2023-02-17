@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import TheWelcome from './components/TheWelcome.vue'
+import GreyhoundComponent from "./components/Greyhound.vue"
+        const root = document.querySelector("#app")
+        const componentName = root?.getAttribute("greyhound-component") || "Error";
+        const componentProps = JSON.parse(root?.getAttribute("greyhound-props") ||  `{"error": "No root div found"}`);
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
   <main>
-    <TheWelcome />
+    <GreyhoundComponent :componentName="componentName" :componentProps="componentProps" />
   </main>
 </template>
 
