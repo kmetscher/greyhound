@@ -1,14 +1,16 @@
 package main
 
 import (
-	"github.com/gin-contrib/static"
-	"github.com/gin-gonic/gin"
+    "greyhound/core"
+    "greyhound/routes"
 )
 
 func main() {
-    r := gin.Default()
-    r.Use(static.Serve("/", static.LocalFile("./web/dist", false)))
-    r.Run(":8080")
+    router := core.Router()
+    for _, route := range routes.Web() {
+        router.Register(route)
+    }
+    router.Run(":8080")
 }
 
 

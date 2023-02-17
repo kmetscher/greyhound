@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"greyhound/bootstrap"
+    "greyhound/bootstrap"
 	"greyhound/controllers"
 	"greyhound/routes"
 )
@@ -16,8 +16,10 @@ type Greyhound struct {
     engine gin.Engine
 }
 
-func New() *Greyhound {
+func Router() *Greyhound {
     engine := gin.Default()
+    // TODO: extract indexing and static asset loading to end user bootstrapping
+    // HACK: just declare those paths as constructor params?
     engine.SetHTMLTemplate(bootstrap.ParseIndex())
     engine.Static("assets", "web/dist/assets")
     g := &Greyhound{
@@ -36,6 +38,7 @@ func isAsync(request http.Request) (async bool, e error) {
     return false, nil
 }
 
+// TODO: shit myself and die with elegance and grace
 func bail(c *gin.Context, e error) {
     c.AbortWithError(http.StatusInternalServerError, e)
 }
@@ -67,5 +70,9 @@ func dispatch(controller controllers.Controller) gin.HandlerFunc {
 
 func (g *Greyhound) Register(route routes.Route) {
     g.engine.Handle(string(route.Method), route.Path, dispatch(route.Controller))
+}
+
+func (g *Greyhound) Run(address string) {
+    g.engine.Run(address)
 }
 
