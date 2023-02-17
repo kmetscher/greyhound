@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import GreyhoundComponent from "./components/Greyhound.vue"
-        const root = document.querySelector("#app")
-        const componentName = root?.getAttribute("greyhound-component") || "Error";
-        const componentProps = JSON.parse(root?.getAttribute("greyhound-props") ||  `{"error": "No root div found"}`);
 </script>
 
 <template>
   <main>
-    <GreyhoundComponent :componentName="componentName" :componentProps="componentProps" />
+    <img alt="Greyhound logo" class="logo" src="./assets/logo.png"> 
   </main>
 </template>
 
