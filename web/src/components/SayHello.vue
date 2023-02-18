@@ -7,6 +7,7 @@ defineProps<{
 
 <template>
   <div class="greetings">
+    <img src="../assets/logo.png">
     <h1 class="green">{{ message }}</h1>
     <h3>{{ success }}</h3>
   </div>
@@ -21,6 +22,13 @@ h1 {
 
 h3 {
   font-size: 1.2rem;
+}
+
+.greetings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .greetings h1,

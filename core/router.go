@@ -33,7 +33,7 @@ func isAsync(request http.Request) (async bool, e error) {
     if request.Header == nil {
         return false, errors.New("greyhound.core: Request has no headers")
     }
-    if request.Header.Get("X-Greyhound-Async") == "true" {
+    if request.Header.Get("X-Inertia") == "true" {
         return true, nil
     }
     return false, nil
@@ -47,23 +47,32 @@ func bail(c *gin.Context, e error) {
 func dispatch(controller controllers.Controller) gin.HandlerFunc {
     return func(context *gin.Context) {
         component, props := controller(context)
+        pageData := struct {
+            ComponentName string `json:"component"`
+            ComponentProps interface{} `json:"props"`
+            PageUrl string `json:"url"`
+            AssetVersion string `json:"version"`
+        }{
+            ComponentName: component,
+            ComponentProps: props, 
+            PageUrl: context.FullPath(),
+            AssetVersion: "abc",
+        };
+        greyhoundPage, err := json.Marshal(pageData)
+        if err != nil {
+            bail(context, err)
+        }
         async, err := isAsync(*context.Request)
         if err != nil {
             bail(context, err)
         }
-        propsJson, err := json.Marshal(props)
-        if err != nil {
-            bail(context, err)
-        }
         if async {
-            context.JSON(http.StatusOK, gin.H{
-                "component": component,
-                "props": propsJson,
-            })
+            context.Header("X-Inertia", "true")
+            context.Header("Vary", "Accept")
+            context.JSON(http.StatusOK, pageData)
         } else {
             context.HTML(http.StatusOK, "index.html", gin.H{
-                "component": component,
-                "props": string(propsJson),
+                "greyhound": string(greyhoundPage),
             })
         }
     }

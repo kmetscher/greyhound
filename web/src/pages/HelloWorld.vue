@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import "../components/SayHello.vue";
+import SayHello from "../components/SayHello.vue";
+import { Link } from "@inertiajs/vue3";
 defineProps<{
   message: string;
   success: string;
@@ -7,5 +8,9 @@ defineProps<{
 </script>
 
 <template>
-    <HelloWorld message="message" success="success" />
+    <SayHello :message="message" :success="success" />
+    <Link href="/about">Test the router?</Link>
 </template>
+
+<style scoped>
+</style>

@@ -3,13 +3,11 @@ package controllers
 import "github.com/gin-gonic/gin"
 
 func About(c *gin.Context) (component string, props interface{}) {
-    aboutComponent := "About"
     aboutProps := struct{
-        msg string 
-        link string
+        Message string `json:"message"`
     }{
-        msg: "Greyhound is a project by Kyle Metscher",
-        link: "https://kylemetscher.com",
+        Message: "Small miracle!",
     }
+    aboutComponent := "Test"
     return aboutComponent, aboutProps
 }
